@@ -16,7 +16,6 @@ RUN \
 
 FROM debian:buster-slim
 # FROM debian:buster  # for debugging docker build
-MAINTAINER <src+pushbox@jrconlin.com>
 RUN \
     groupadd --gid 10001 app && \
     useradd --uid 10001 --gid 10001 --home /app --create-home app && \
@@ -28,6 +27,7 @@ RUN \
 
 COPY --from=builder /app/bin /app/bin
 COPY --from=builder /app/version.json /app
+COPY --from=builder /app/purge.bash /app
 
 WORKDIR /app
 USER app
